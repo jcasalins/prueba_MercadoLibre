@@ -2,6 +2,24 @@ import utilItems from '../services/items.js'
 
 const formats = {}
 
+const randomAddress = () => {
+  const address = [
+    'Capital Federal',
+    'Buenos Aires',
+    'Córdoba',
+    'Mendoza',
+    'Rosario',
+    'San Miguel de Tucumán',
+    'San Salvador de Jujuy',
+    'Santa Fe',
+    'Tucumán',
+    'Ushuaia',
+    'Villa Gesell',
+    'Villa María'
+  ]
+  return address[Math.floor(Math.random() * address.length)]
+}
+
 const searchBreadcrumb = async (items) => {
   const categoryIds = items.map((item) => item.category_id)
   const count = categoryIds.reduce((acc, el) => {
@@ -33,7 +51,7 @@ formats.itemsList = async (search) => {
       picture: item.thumbnail,
       condition: item.condition,
       free_shipping: item.shipping.free_shipping,
-      address: item.address.state_name
+      address: randomAddress()
     }
   })
   resutl.author = utilItems.author
@@ -57,13 +75,13 @@ formats.item = async (id) => {
     price: {
       currency: item.currency_id,
       amount: Math.trunc(item.price),
-      decimals: Number(item.price.toString().split('.')[1] || 0)
+      decimals: Number(item.price.toString().split('.')[1] || 0),
     },
     picture: item.pictures[0].url,
     condition: item.condition,
     free_shipping: item.shipping.free_shipping,
     sold_quantity: item.sold_quantity,
-    description: description.plain_text
+    description: description.plain_text,
   }
   resutl.categories = categories
   return resutl
