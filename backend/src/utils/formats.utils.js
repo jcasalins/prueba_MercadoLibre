@@ -75,13 +75,13 @@ formats.item = async (id) => {
     price: {
       currency: item.currency_id,
       amount: Math.trunc(item.price),
-      decimals: Number(item.price.toString().split('.')[1] || 0),
+      decimals: Number(item.price.toString().split('.')[1] || 0)
     },
     picture: item.pictures[0].url,
     condition: item.condition,
     free_shipping: item.shipping.free_shipping,
     sold_quantity: item.sold_quantity,
-    description: description.plain_text,
+    description: description.plain_text
   }
   resutl.categories = categories
   return resutl
