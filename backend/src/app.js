@@ -4,10 +4,18 @@ import apiRoutes from './routes/api.routes.js'
 const app = express()
 app.disable('x-powered-by')
 
+const whitelist = ['http://localhost:5173', 'http://127.0.0.1:5173']
+const corsOrigin = (origin, callback) => {
+  if (whitelist.includes(origin)) {
+    callback(null, true)
+  } else {
+    callback(new Error('Not allowed by CORS'))
+  }
+}
 app.use(
   cors({
-    origin: 'http://localhost:5173',
-    methods: ['GET']
+    origin: corsOrigin,
+    methods: ['GET', 'POST']
   })
 )
 app.use(express.json())
