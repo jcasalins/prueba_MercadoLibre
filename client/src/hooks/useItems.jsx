@@ -7,13 +7,15 @@ function useItems(search) {
   useEffect(() => {
     const fetchItems = async () => {
       const products = await getItems(search)
-      const listItems = products.items
-      const listCategories = products.categories
+      const listItems = products.items || []
+      const listCategories = products.categories  || []
       if (listItems.length) {
         setItems(listItems)
         setCategories(listCategories)
         setLoading(false)
       } else {
+        setItems([])
+        setCategories([])
         setLoading(true)
       }
     }

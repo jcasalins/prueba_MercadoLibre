@@ -5,6 +5,7 @@ import ItemsBox from '../../components/itemsBox/ItemsBox'
 import Loading from '../../components/loading/Loading'
 import useItems from '../../hooks/useItems'
 import SEO from '../../components/SEO/Index'
+import NotFound from '../notFound/NotFound'
 
 function Items() {
   const [searchParams] = useSearchParams()
@@ -12,6 +13,7 @@ function Items() {
   if (!search || search === '') return <Navigate to="/" />
   const title = search ? `${search}` : 'Mercado Libre'
   const { items, categories, loading } = useItems(search)
+  if (items.length === 0) return <NotFound/>
   if (loading) return <Main><Loading /></Main>
   return (
     <>
